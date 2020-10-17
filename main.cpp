@@ -221,10 +221,34 @@ string Leaf::Symbol() {
 
 
 
+/****************************************************************
+structure used to sort Nodes in priority queue
+*****************************************************************/
+struct compare {
+	bool operator () (Node* n1, Node* n2) {
+		return (n1->Freq() > n2->Freq());
+	}
+};
+
+
+
+// reads symbol and frequency from frequency vector
+// reads pair into node 
+// pushes nodes into priority queue
+priority_queue<Node*, vector<Node*>, compare> readFrequencyVector(vector<frequency> freqTable) {
+	priority_queue<Node*, vector<Node*>, compare> pQueue;
+	for (auto& x : freqTable) {
+		Node* freq = new Leaf(string(1, x._c), x._f);
+		pQueue.push(freq);
+	}
+	return pQueue;
+}
+
+
+
 // decrypt and decode compressed binary file given the frequency of symbols
 // use huffman coding algorythms to encrypt and decrypt binary file
-int main()
-{
-
+int main() {
+	priority_queue<Node*, vector<Node*>, compare> s = readFrequencyVector(vfrequency);
 	return 0;
 }
