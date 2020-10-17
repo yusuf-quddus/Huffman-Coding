@@ -118,6 +118,109 @@ vector<frequency> vfrequency = {
 	frequency('~',0.00152556)
 };
 
+
+
+/****************************************************************
+Pure virtual objects acts as base class for branch and leaf nodes
+*****************************************************************/
+class Node {
+public: 
+	virtual float Freq() = 0;
+	virtual string Symbol() = 0;
+};
+
+
+
+/****************************************************************
+Derived from Node class. 
+Holds a left node and right node
+used in huffman tree as non-end nodes
+*****************************************************************/
+class Branch : public Node {
+protected:
+	Node* left;
+	Node* right;
+public:
+	Branch(Node*, Node*);
+	Node* getLeft();
+	Node* getRight();
+	float Freq();
+	string Symbol();
+	
+	void operator = (const Branch& B) {
+		left = B.left;
+		right = B.right;
+	}
+};
+
+
+Branch::Branch(Node* n1, Node* n2) {
+	left = n1;
+	right = n2;
+}
+
+
+// returns left node
+Node* Branch::getLeft() {
+	return left;
+}
+
+
+// returns right node
+Node* Branch::getRight() {
+	return right;
+}
+
+
+// returns frequency of symbol
+float Branch::Freq() {
+	float amount = left->Freq() + right->Freq();
+	return amount;
+}
+
+
+// returns symbol
+string Branch::Symbol() {
+	return string(left->Symbol() + right->Symbol());
+}
+
+
+
+/****************************************************************
+Derived from Node class
+Leaf object holds symbol and frequency. 
+Used as the end nodes of the huffman tree
+*****************************************************************/
+class Leaf : public Node {
+protected: 
+	float freq;
+	string symbol;
+public:
+	Leaf(string, float);
+	float Freq();
+	string Symbol();
+};
+
+
+Leaf::Leaf(string s = "", float f=0) {
+	freq = f;
+	symbol = s;
+}
+
+
+// returns frequency
+float Leaf::Freq() {
+	return freq;
+}
+
+
+// returns symbol
+string Leaf::Symbol() {
+	return symbol;
+}
+
+
+
 // decrypt and decode compressed binary file given the frequency of symbols
 // use huffman coding algorythms to encrypt and decrypt binary file
 int main()
