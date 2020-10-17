@@ -190,7 +190,7 @@ string Branch::Symbol() {
 Derived from Node class
 Leaf object holds symbol and frequency. 
 Used as the end nodes of the huffman tree
-*****************************************************************/
+******************************************************************/
 class Leaf : public Node {
 protected: 
 	float freq;
