@@ -1,10 +1,10 @@
 #include <iostream>
+#include <vector>
+#include <iostream>
 #include <string>
 #include <fstream>
-#include <queue>
 #include <vector>
-#include <bitset>
-#include <regex>
+#include "File.h"
 
 using namespace std;
 
